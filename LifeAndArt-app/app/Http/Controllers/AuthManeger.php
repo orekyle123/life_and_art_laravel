@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 class AuthManeger extends Controller
 {
@@ -12,13 +13,18 @@ class AuthManeger extends Controller
 
     public function login(){
 
-        
+            if(Auth::check()){
+                return redirect(route('home'));
+            }
         return view('login');
 
     }
 
 
     public function register(){
+        if(Auth::check()){
+            return redirect(route('home'));
+        }
 
         return view('registration');
 
@@ -52,6 +58,8 @@ class AuthManeger extends Controller
             $data->validate([
                 'name' => 'required|max:25',
                 'email' => 'required|email|unique:users',
+                'contact' => ' required|numeric|digits:11',
+                'address' => ' required',
                 'password' => 'required|min:6'
 
  
@@ -59,6 +67,8 @@ class AuthManeger extends Controller
 
             $info['name'] = $data->name;
             $info['email'] = $data->email;
+            $info['contact'] = $data->contact;
+            $info['address'] = $data->address;
             $info['password'] = Hash::make($data->password);
             $user = User::create($info);
 
@@ -70,9 +80,9 @@ class AuthManeger extends Controller
     }
 
 
-    public function logout(){
-        Session::flush();
-        Auth::logout();
-        return rediract(routh('login'));
+    public function logout(Request $request){
+      $request->session()->flush();
+       Auth::logout();
+        return redirect(route('login'));
     }
 }

@@ -26,3 +26,12 @@ Route::post('/register', [AuthManeger:: class, 'registerPost'])->name('register.
 
 Route::get('/logout', [AuthManeger:: class, 'logout'])->name('logout');
 
+Route::group(['middleware' => 'auth'], function (){
+    
+    Route::get('/profile', function(){
+        
+        return"Hi";
+    });
+    
+});
+

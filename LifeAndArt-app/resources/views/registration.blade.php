@@ -58,6 +58,18 @@
                    
                   </div>
 
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Contact number</label>
+                    <input type="text" class="form-control" name="contact" aria-describedby="emailHelp">
+                   
+                  </div>
+
+
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Address</label>
+                    <input type="text" class="form-control" name="address" aria-describedby="emailHelp">
+                   
+                  </div>
 
 
 
